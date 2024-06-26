@@ -6,6 +6,8 @@ import LoginPage from "../pages/login/LoginPage";
 import HomePage from "../pages/home/HomePage";
 import ProductListPage from "../pages/products/ProductListPage";
 import ProductFormPage from "../pages/products/ProductFormPage";
+import UserListPage from "../pages/users/UserListPage";
+import UserFormPage from "../pages/users/UserFormPage";
 
 export const routerConfig = createBrowserRouter([
   {
@@ -39,6 +41,18 @@ export const routerConfig = createBrowserRouter([
   {
     path: Routes.PRODUCT.EDIT,
     element: <ProductFormPage />,
+  },
+  {
+    path: Routes.USER.LIST,
+    element: <UserListPage />,
+  },
+  {
+    path: Routes.USER.CREATE,
+    element: <UserFormPage />,
+  },
+  {
+    path: Routes.USER.EDIT,
+    element: <UserFormPage />,
   },
   
 ]);

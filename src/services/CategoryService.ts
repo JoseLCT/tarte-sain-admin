@@ -37,6 +37,15 @@ export const CategoryService = {
                 .catch(error => reject(error))
         });
     },
+    uploadImage: (categoryId: number, image: File) => {
+        const formData = new FormData();
+        formData.append('file', image);
+        return new Promise((resolve, reject) => {
+            api.post(`categories/${categoryId}/image/`, formData)
+                .then(response => resolve(response.data))
+                .catch(error => reject(error))
+        });
+    }
 
     
 }

@@ -29,19 +29,23 @@ const CategoryListPage = () => {
             </div>
             <table className="table-auto w-full">
                 <thead>
-                    <tr>
-                        <th className="1/6 text-lg ps-3 text-left">Nombre</th>
-                        <th className="3/6 text-lg ps-3 text-left">Descripción</th>
-                        <th className="1/6 text-lg ps-3 text-left">Slug</th>
-                        <th className="1/6 text-lg ps-3 text-left"></th>
+                    <tr className="border-b-2 border-secondary">
+                        <th className="text-lg ps-3 pb-2 text-left">Nombre</th>
+                        <th className="text-lg ps-3 pb-2 text-left">Descripción</th>
+                        <th className="text-lg ps-3 pb-2 text-left">Slug</th>
+                        <th className="text-lg ps-3 pb-2 text-left">Imagen</th>
+                        <th className="text-lg ps-3 pb-2 text-left"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {categories.map((category) => <tr key={"cat-" + category.id}>
-                        <td className="1/6 ps-3">{category.name}</td>
-                        <td className="3/6 ps-3">{category.description}</td>
-                        <td className="1/6 ps-3">{category.slug}</td>
-                        <td className="1/6 ps-3">
+                        <td className="ps-3">{category.name}</td>
+                        <td className="ps-3">{category.description}</td>
+                        <td className="ps-3">{category.slug}</td>
+                        <td className="ps-3">
+                            <img src={category.img_url} alt={category.slug} className="w-20 h-20" />
+                        </td>
+                        <td className="ps-3">
                             <a href={Routes.CATEGORY.EDIT_PARAM(category.id)}
                                 className="primary__button p-2">Editar</a>
                             <button onClick={() => deleteCategory(category.id!)}

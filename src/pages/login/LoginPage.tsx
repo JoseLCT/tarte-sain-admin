@@ -16,6 +16,7 @@ const LoginPage = () => {
         AuthService.login(email, password)
             .then(response => {
                 sessionStorage.setItem('access_token', response.access_token);
+                sessionStorage.setItem('role', response.role);
                 navigate(Routes.HOME);
             }).catch(() => {
                 setError("Credenciales incorrectas");
