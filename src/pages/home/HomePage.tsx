@@ -10,8 +10,8 @@ const HomePage = () => {
             <a href={Routes.CATEGORY.LIST} className="primary__button p-1">Categorias</a>
             <a href={Routes.PRODUCT.LIST} className="primary__button p-1">Productos</a>
             {sessionStorage.getItem("role") === "super_admin" &&
-                <a href={Routes.USER.LIST} className="primary__button p-1">Administradores</a>}
-            <a href={Routes.CATEGORY.LIST} className="primary__button p-1">Ordenes</a>
+                <a href={Routes.ADMIN.LIST} className="primary__button p-1">Administradores</a>}
+            <a href={Routes.ORDER.LIST} className="primary__button p-1">Ordenes</a>
         </main>
     </>);
 }

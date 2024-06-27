@@ -13,10 +13,13 @@ export const Routes = {
         EDIT: '/productos/editar/:id',
         EDIT_PARAM: (id?: number) => `/productos/editar/${id}`,
     },
-    USER: {
-        LIST: '/usuarios',
-        CREATE: '/usuarios/crear',
-        EDIT: '/usuarios/editar/:id',
-        EDIT_PARAM: (id?: number) => `/usuarios/editar/${id}`,
+    ADMIN: {
+        LIST: '/admins',
+        CREATE: '/admins/crear',
+        EDIT: '/admins/editar/:id',
+        EDIT_PARAM: (id?: number) => `/admins/editar/${id}`,
     },
+    ORDER: {
+        LIST: '/ordenes',
+    }
 }

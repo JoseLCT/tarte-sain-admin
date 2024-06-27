@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import HeaderComponent from "../../components/HeaderComponent";
-import { User } from "../../models/objects/User";
-import { UserService } from "../../services/UserService";
+import { Admin } from "../../models/objects/Admin";
+import { AdminService } from "../../services/AdminService";
 import { Routes } from "../../routes/CONSTANTS";
 
-const UserListPage = () => {
-    const [users, setUsers] = useState<User[]>([])
+const AdminListPage = () => {
+    const [admins, setAdmins] = useState<Admin[]>([])
 
-    const deleteUser = (userId: number) => {
+    const deleteAdmin = (adminId: number) => {
         if (!window.confirm('¿Estás seguro de eliminar este usuario?')) return;
-        UserService.delete(userId).then(() => fetchUsers());
+        AdminService.delete(adminId).then(() => fetchAdmins());
     }
 
-    const fetchUsers = () => {
-        UserService.list().then(response => setUsers(response));
+    const fetchAdmins = () => {
+        AdminService.list().then(response => setAdmins(response));
     }
 
     useEffect(() => {
-        fetchUsers();
+        fetchAdmins();
     }, []);
 
     return (<>
@@ -25,7 +25,7 @@ const UserListPage = () => {
         <main className="padding__x">
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl text-secondary font-bold my-3">Usuarios</h1>
-                <a href={Routes.USER.CREATE} className="primary__button p-2 h-fit">Agregar</a>
+                <a href={Routes.ADMIN.CREATE} className="primary__button p-2 h-fit">Agregar</a>
             </div>
             <table className="table-auto w-full">
                 <thead>
@@ -38,15 +38,15 @@ const UserListPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((user) => <tr key={"cat-" + user.id}>
-                        <td className="ps-3">{user.name}</td>
-                        <td className="ps-3">{user.last_name}</td>
-                        <td className="ps-3">{user.email}</td>
-                        <td className="ps-3">{user.phone_number}</td>
+                    {admins.map((admin) => <tr key={"cat-" + admin.id}>
+                        <td className="ps-3">{admin.name}</td>
+                        <td className="ps-3">{admin.last_name}</td>
+                        <td className="ps-3">{admin.email}</td>
+                        <td className="ps-3">{admin.phone_number}</td>
                         <td className="ps-3">
-                            <a href={Routes.USER.EDIT_PARAM(user.id)}
+                            <a href={Routes.ADMIN.EDIT_PARAM(admin.id)}
                                 className="primary__button p-2">Editar</a>
-                            <button onClick={() => deleteUser(user.id!)}
+                            <button onClick={() => deleteAdmin(admin.id!)}
                                 className="text-white font-medium rounded-xl bg-red-600 p-2 ms-2">
                                 Eliminar</button>
                         </td>
@@ -57,4 +57,4 @@ const UserListPage = () => {
     </>);
 }
 
-export default UserListPage;
+export default AdminListPage;

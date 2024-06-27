@@ -1,45 +1,45 @@
-import { User } from "../models/objects/User";
+import { Admin } from "../models/objects/Admin";
 import api from "./Interceptors";
 
-export const UserService = {
+export const AdminService = {
     list: () => {
-        return new Promise<User[]>((resolve, reject) => {
-            api.get('users/')
+        return new Promise<Admin[]>((resolve, reject) => {
+            api.get('admins/')
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });
     },
-    create: (users: User) => {
-        return new Promise<User>((resolve, reject) => {
-            api.post('users/', users)
+    create: (admins: Admin) => {
+        return new Promise<Admin>((resolve, reject) => {
+            api.post('admins/', admins)
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });
     },
-    update: (users: User) => {
-        return new Promise<User>((resolve, reject) => {
-            api.put(`users/${users.id}/`, users)
+    update: (admins: Admin) => {
+        return new Promise<Admin>((resolve, reject) => {
+            api.put(`users/${admins.id}/`, admins)
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });
     },
-    delete: (usersId: number) => {
+    delete: (adminsId: number) => {
         return new Promise((resolve, reject) => {
-            api.delete(`users/${usersId}/`)
+            api.delete(`admins/${adminsId}/`)
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });
     },
     get: (id: number) => {
-        return new Promise<User>((resolve, reject) => {
-            api.get(`users/${id}/`)
+        return new Promise<Admin>((resolve, reject) => {
+            api.get(`admins/${id}/`)
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });
-    },    
-    me: () => {
-        return new Promise<User>((resolve, reject) => {
-            api.get('me/')
+    },
+    updateRole: (id: number, role: string) => {
+        return new Promise<Admin>((resolve, reject) => {
+            api.put(`admins/${id}/change-role/`, { role })
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });

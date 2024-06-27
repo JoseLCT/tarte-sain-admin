@@ -6,8 +6,9 @@ import LoginPage from "../pages/login/LoginPage";
 import HomePage from "../pages/home/HomePage";
 import ProductListPage from "../pages/products/ProductListPage";
 import ProductFormPage from "../pages/products/ProductFormPage";
-import UserListPage from "../pages/users/UserListPage";
-import UserFormPage from "../pages/users/UserFormPage";
+import AdminListPage from "../pages/admins/AdminListPage";
+import AdminFormPage from "../pages/admins/AdminFormPage";
+import OrderListPage from "../pages/orders/OrderListPage";
 
 export const routerConfig = createBrowserRouter([
   {
@@ -43,16 +44,19 @@ export const routerConfig = createBrowserRouter([
     element: <ProductFormPage />,
   },
   {
-    path: Routes.USER.LIST,
-    element: <UserListPage />,
+    path: Routes.ADMIN.LIST,
+    element: <AdminListPage />,
   },
   {
-    path: Routes.USER.CREATE,
-    element: <UserFormPage />,
+    path: Routes.ADMIN.CREATE,
+    element: <AdminFormPage />,
   },
   {
-    path: Routes.USER.EDIT,
-    element: <UserFormPage />,
+    path: Routes.ADMIN.EDIT,
+    element: <AdminFormPage />,
   },
-  
+  {
+    path: Routes.ORDER.LIST,
+    element: <OrderListPage />,
+  }
 ]);
