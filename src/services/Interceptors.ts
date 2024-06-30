@@ -1,20 +1,22 @@
 import axios from "axios";
+import { Routes } from "../routes/CONSTANTS";
 
 const api = axios.create({
-    baseURL: 'https://tartesain.com/api/v1',
+    baseURL: 'https://tartesain.com/proxy/v1',
+    withCredentials: true,
     timeout: 5000,
-});
-api.interceptors.request.use(
-    (config) => {
-        const token = sessionStorage.getItem('access_token');
-        if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`;
+})
+api.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        console.log('error', error);
+        if (error.response?.status === 401) {
+            if (window.location.pathname !== Routes.LOGIN) {
+                window.location.href = Routes.LOGIN;
+                sessionStorage.clear();
+            }
         }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
-);
+        return Promise.reject(error)
+    });
 
 export default api;

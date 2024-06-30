@@ -21,11 +21,13 @@ const ProductFormPage = () => {
     const [galleryImages, setGalleryImages] = useState<ProductImage[]>([]);
     const [galleryImagesFiles, setGalleryImagesFiles] = useState<File[]>([]);
     const [uploadedImagesAmount, setUploadedImagesAmount] = useState(0);
+    const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
     const navigate = useNavigate();
 
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError('');
+        setIsSaveButtonDisabled(true);
         if (productCategories.length === 0) {
             setError('Selecciona al menos una categoría');
             return;
@@ -49,6 +51,9 @@ const ProductFormPage = () => {
         ProductService.update(product)
             .then((product) => {
                 uploadImages(product.id!);
+            }).catch(() => {
+                setError('Ocurrió un error al actualizar el producto');
+                setIsSaveButtonDisabled(false);
             });
     }
 
@@ -62,25 +67,26 @@ const ProductFormPage = () => {
         ProductService.create(product)
             .then((product) => {
                 uploadImages(product.id!);
+            }).catch(() => {
+                setError('Ocurrió un error al crear el producto');
+                setIsSaveButtonDisabled(false);
             });
     }
 
     const uploadImages = (productId: number) => {
-        if (imageFile) {
-            ProductService.uploadImage(productId, imageFile).then(() => {
-                navigate(Routes.PRODUCT.LIST);
-            });
-        }
-        if (galleryImagesFiles.length === 0) {
-            navigate(Routes.PRODUCT.LIST);
-            return;
-        }
         const promises: Promise<Product>[] = [];
+        if (imageFile) {
+            const uploadImagePromise = ProductService.uploadImage(productId, imageFile);
+            promises.push(uploadImagePromise);
+        }
         galleryImagesFiles.forEach((image) => {
             promises.push(ProductService.uploadGalleryImage(productId, image));
         });
         Promise.all(promises).then(() => {
             navigate(Routes.PRODUCT.LIST);
+        }).catch(() => {
+            setError('Ocurrió un error al subir las imágenes');
+            setIsSaveButtonDisabled(false);
         });
     }
 
@@ -117,7 +123,7 @@ const ProductFormPage = () => {
         const images = event.target.files;
         const newImages: ProductImage[] = [];
         for (const image of images) {
-            newImages.push({ img_url: URL.createObjectURL(image), img_public_id: ''});
+            newImages.push({ img_url: URL.createObjectURL(image), img_public_id: '' });
         }
         setGalleryImagesFiles([...galleryImagesFiles, ...images]);
         setGalleryImages([...galleryImages, ...newImages]);
@@ -240,7 +246,7 @@ const ProductFormPage = () => {
                                 <img src={image.img_url}
                                     className="h-[200px] rounded-md" />
                                 <button className="bg-red-600 px-2 py-1 text-white rounded-full absolute top-0 end-0"
-                                    onClick={() => {
+                                    type="button" onClick={() => {
                                         if (image.id) {
                                             deleteGalleryImage(image.id);
                                             return;
@@ -261,7 +267,9 @@ const ProductFormPage = () => {
                         {error}
                     </p>
                 </div>
-                <button className="primary__button w-96 p-2" type="submit">Guardar</button>
+                <button className="primary__button w-96 p-2" type="submit" disabled={isSaveButtonDisabled}>
+                    {isSaveButtonDisabled ? 'Guardando...' : 'Guardar'}
+                </button>
             </form>
         </main>
     </>);

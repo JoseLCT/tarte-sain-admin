@@ -4,35 +4,35 @@ import api from "./Interceptors";
 export const CategoryService = {
     list: () => {
         return new Promise<Category[]>((resolve, reject) => {
-            api.get('categories/')
+            api.get('categories')
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });
     },
     create: (category: Category) => {
         return new Promise<Category>((resolve, reject) => {
-            api.post('categories/', category)
+            api.post('categories', category)
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });
     },
     update: (category: Category) => {
         return new Promise<Category>((resolve, reject) => {
-            api.put(`categories/${category.id}/`, category)
+            api.put(`categories/${category.id}`, category)
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });
     },
     delete: (categoryId: number) => {
         return new Promise((resolve, reject) => {
-            api.delete(`categories/${categoryId}/`)
+            api.delete(`categories/${categoryId}`)
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });
     },
     get: (id: number) => {
         return new Promise<Category>((resolve, reject) => {
-            api.get(`categories/${id}/`)
+            api.get(`categories/${id}`)
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });
@@ -41,7 +41,7 @@ export const CategoryService = {
         const formData = new FormData();
         formData.append('file', image);
         return new Promise((resolve, reject) => {
-            api.post(`categories/${categoryId}/image/`, formData)
+            api.post(`categories/${categoryId}/image`, formData)
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });

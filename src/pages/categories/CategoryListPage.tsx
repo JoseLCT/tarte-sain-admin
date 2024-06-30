@@ -32,7 +32,6 @@ const CategoryListPage = () => {
                     <tr className="border-b-2 border-secondary">
                         <th className="text-lg ps-3 pb-2 text-left">Nombre</th>
                         <th className="text-lg ps-3 pb-2 text-left">Descripción</th>
-                        <th className="text-lg ps-3 pb-2 text-left">Slug</th>
                         <th className="text-lg ps-3 pb-2 text-left">Imagen</th>
                         <th className="text-lg ps-3 pb-2 text-left"></th>
                     </tr>
@@ -41,9 +40,8 @@ const CategoryListPage = () => {
                     {categories.map((category) => <tr key={"cat-" + category.id}>
                         <td className="ps-3">{category.name}</td>
                         <td className="ps-3">{category.description}</td>
-                        <td className="ps-3">{category.slug}</td>
                         <td className="ps-3">
-                            <img src={category.img_url} alt={category.slug} className="w-20 h-20" />
+                            <img src={category.img_url} alt={category.name} className="w-20 h-20" />
                         </td>
                         <td className="ps-3">
                             <a href={Routes.CATEGORY.EDIT_PARAM(category.id)}

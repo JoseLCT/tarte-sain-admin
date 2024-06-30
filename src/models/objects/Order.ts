@@ -1,3 +1,5 @@
+import { OrderProduct } from "./OrderProduct";
+
 export interface Order {
     id?: number,
     address: string,
@@ -5,5 +7,6 @@ export interface Order {
     phone_number: string,
     note: string,
     total_amount: string,
-    status: string
+    status: string,
+    products?: OrderProduct[]
 }

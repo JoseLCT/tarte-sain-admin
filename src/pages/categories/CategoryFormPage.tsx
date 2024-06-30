@@ -8,7 +8,6 @@ const CategoryFormPage = () => {
     const { id } = useParams();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [slug, setSlug] = useState('');
     const [image, setImage] = useState('');
     const [imageFile, setImageFile] = useState<File>();
     const [error, setError] = useState('');
@@ -26,7 +25,7 @@ const CategoryFormPage = () => {
 
     const updateCategory = () => {
         if (!id) return;
-        CategoryService.update({ id: parseInt(id), name, description, slug })
+        CategoryService.update({ id: parseInt(id), name, description })
             .then(() => {
                 if (!imageFile) {
                     navigate(Routes.CATEGORY.LIST);
@@ -39,7 +38,7 @@ const CategoryFormPage = () => {
     }
 
     const createCategory = () => {
-        CategoryService.create({ name, description, slug })
+        CategoryService.create({ name, description })
             .then((category) => {
                 CategoryService.uploadImage(category.id!, imageFile!).then(() => {
                     navigate(Routes.CATEGORY.LIST);
@@ -52,7 +51,6 @@ const CategoryFormPage = () => {
         CategoryService.get(parseInt(id)).then(category => {
             setName(category.name);
             setDescription(category.description);
-            setSlug(category.slug);
             setImage(category.img_url!);
         });
     }
@@ -105,19 +103,6 @@ const CategoryFormPage = () => {
                             focus:ring-0 sm:text-sm sm:leading-6 rounded-md"
                             placeholder="Ingresa la descripcion" value={description} required
                             onChange={(e) => setDescription(e.target.value)} />
-                    </div>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="slug" className="block text-md font-medium text-gray-900 mb-1">
-                        Slug
-                    </label>
-                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 
-                        focus-within:ring-2 focus-within:ring-inset sm:max-w-md">
-                        <input type="text" name="slug" id="slug" className="block flex-1 border-0 
-                            bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 
-                            focus:ring-0 sm:text-sm sm:leading-6 rounded-md"
-                            placeholder="Ingresa el slug" value={slug} required
-                            onChange={(e) => setSlug(e.target.value)} />
                     </div>
                 </div>
                 <div className="mb-3">

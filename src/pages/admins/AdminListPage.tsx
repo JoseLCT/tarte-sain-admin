@@ -3,9 +3,11 @@ import HeaderComponent from "../../components/HeaderComponent";
 import { Admin } from "../../models/objects/Admin";
 import { AdminService } from "../../services/AdminService";
 import { Routes } from "../../routes/CONSTANTS";
+import { useNavigate } from "react-router-dom";
 
 const AdminListPage = () => {
     const [admins, setAdmins] = useState<Admin[]>([])
+    const navigate = useNavigate();
 
     const deleteAdmin = (adminId: number) => {
         if (!window.confirm('¿Estás seguro de eliminar este usuario?')) return;
@@ -14,6 +16,11 @@ const AdminListPage = () => {
 
     const fetchAdmins = () => {
         AdminService.list().then(response => setAdmins(response));
+    }
+
+    const navigateToEdit = (adminId: number) => {
+        sessionStorage.setItem('editProfile', '0');
+        navigate(Routes.ADMIN.EDIT_PARAM(adminId));
     }
 
     useEffect(() => {
@@ -44,8 +51,8 @@ const AdminListPage = () => {
                         <td className="ps-3">{admin.email}</td>
                         <td className="ps-3">{admin.phone_number}</td>
                         <td className="ps-3">
-                            <a href={Routes.ADMIN.EDIT_PARAM(admin.id)}
-                                className="primary__button p-2">Editar</a>
+                            <button onClick={() => navigateToEdit(admin.id!)}
+                                className="primary__button p-2">Editar</button>
                             <button onClick={() => deleteAdmin(admin.id!)}
                                 className="text-white font-medium rounded-xl bg-red-600 p-2 ms-2">
                                 Eliminar</button>

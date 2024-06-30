@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import HeaderComponent from "../../components/HeaderComponent";
 import { Order } from "../../models/objects/Order";
 import { OrderService } from "../../services/OrderService";
+import OrderModal from "../../components/OrderModal";
 interface DateTimeFormatOptions extends Intl.DateTimeFormatOptions { }
 
 const OrderListPage = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     const [filter, setFilter] = useState("");
+    const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+    const [selectedOrderId, setSelectedOrderId] = useState(0);
     const options: DateTimeFormatOptions = {
         year: 'numeric',
         month: 'long',
@@ -28,6 +31,11 @@ const OrderListPage = () => {
     const getFormattedDate = (date: string) => {
         const dateObj = new Date(date);
         return dateObj.toLocaleDateString('es-ES', options);
+    }
+
+    const openOrderModal = (orderId: number) => {
+        setSelectedOrderId(orderId);
+        setIsOrderModalOpen(true);
     }
 
     return (<>
@@ -54,6 +62,7 @@ const OrderListPage = () => {
                         <th className="text-lg ps-3 pb-2 text-left">Teléfono</th>
                         <th className="text-lg ps-3 pb-2 text-left">Estado</th>
                         <th className="text-lg ps-3 pb-2 text-left">Monto Total</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,11 +76,20 @@ const OrderListPage = () => {
                                 <td className="ps-3">{order.phone_number}</td>
                                 <td className="ps-3">{order.status}</td>
                                 <td className="ps-3">{order.total_amount}</td>
+                                <td>
+                                    <button
+                                        className="primary__button p-1"
+                                        onClick={() => openOrderModal(order.id!)}>
+                                        Ver Detalles
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                 </tbody>
             </table>
         </main>
+        <OrderModal handleOpen={() => setIsOrderModalOpen(false)} isOpen={isOrderModalOpen}
+            orderId={selectedOrderId} onSucess={() => fetchOrders()}/>
     </>);
 }
 

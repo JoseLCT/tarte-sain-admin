@@ -16,6 +16,8 @@ const AdminFormPage = () => {
     const [role, setRole] = useState('');
     let initialRole = '';
     const navigate = useNavigate();
+    const currentUserRole = sessionStorage.getItem('role');
+    const [isEdittingProfile, setIsEdittingProfile] = useState(false);
 
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -27,6 +29,10 @@ const AdminFormPage = () => {
         if (!id) {
             createAdmin();
         } else {
+            if (isEdittingProfile) {
+                updateProfile();
+                return;
+            }
             updateAdmin();
         }
     }
@@ -40,6 +46,16 @@ const AdminFormPage = () => {
                     return;
                 }
                 navigate(Routes.ADMIN.LIST)
+            });
+    }
+
+    const updateProfile = () => {
+        if (!id) return;
+        const admin = { id: parseInt(id), name, last_name: lastName, email, phone_number: phone };
+        AdminService.updateOwn(admin)
+            .then(() => { 
+                sessionStorage.removeItem('editProfile');
+                navigate(Routes.ADMIN.LIST) 
             });
     }
 
@@ -65,13 +81,19 @@ const AdminFormPage = () => {
         if (id) {
             fetchAdmin();
         }
+        const editProfile = sessionStorage.getItem('editProfile');
+        if(editProfile){
+            if(editProfile === '1'){
+                setIsEdittingProfile(true);
+            } 
+        }
     }, [id]);
 
     return (<>
         <HeaderComponent />
         <main className="padding__x">
             <h1 className="text-3xl text-secondary font-bold my-3">
-                {id ? 'Editar' : 'Crear'} Administrador
+                {id ? 'Editar' : 'Crear'} {isEdittingProfile?"Perfil": "Administrador"}
             </h1>
             <form className="w-96 mb-3" onSubmit={(e) => onFormSubmit(e)}>
                 <div className="mb-3">
@@ -152,7 +174,7 @@ const AdminFormPage = () => {
                             onChange={(e) => setPhone(e.target.value)} />
                     </div>
                 </div>
-                {role === 'super_admin' || !id && <div className="mb-3">
+                {((currentUserRole === 'super_admin' || !id) && !isEdittingProfile) && <div className="mb-3">
                     <label htmlFor="role" className="block text-md font-medium text-gray-900 mb-1">
                         Rol
                     </label>
