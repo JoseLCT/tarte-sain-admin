@@ -39,7 +39,7 @@ export const AdminService = {
     },
     updateRole: (id: number, role: string) => {
         return new Promise<Admin>((resolve, reject) => {
-            api.put(`admins/${id}/change-role`, { role })
+            api.put(`admins/${id}/change-role?role=${role}`)
                 .then(response => resolve(response.data))
                 .catch(error => reject(error))
         });

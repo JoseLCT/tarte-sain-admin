@@ -34,7 +34,7 @@ const CategoryFormPage = () => {
                 CategoryService.uploadImage(parseInt(id), imageFile).then(() => {
                     navigate(Routes.CATEGORY.LIST);
                 });
-            });
+            }).catch((response) => { setError(response.detail) });
     }
 
     const createCategory = () => {
@@ -43,6 +43,12 @@ const CategoryFormPage = () => {
                 CategoryService.uploadImage(category.id!, imageFile!).then(() => {
                     navigate(Routes.CATEGORY.LIST);
                 });
+            }).catch((error) => {
+                if (error.response.status === 400) {
+                    setError(error.response.data.detail);
+                } else {
+                    setError('Ocurrió un error inesperado');
+                }
             });
     }
 
