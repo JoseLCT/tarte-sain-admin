@@ -145,8 +145,8 @@ const ProductFormPage = () => {
     }
 
     const removeGalleryImage = (index: number) => {
-        setGalleryImages(galleryImages.filter((image, i) => i !== index));
-        setGalleryImagesFiles(galleryImagesFiles.filter((image, i) => i !== index - uploadedImagesAmount));
+        setGalleryImages(galleryImages.filter((_image, i) => i !== index));
+        setGalleryImagesFiles(galleryImagesFiles.filter((_image, i) => i !== index - uploadedImagesAmount));
     }
 
     useEffect(() => {
