@@ -11,9 +11,13 @@ const HeaderComponent = () => {
     const [menuToggled, setMenuToggled] = useState(false)
 
     const logout = () => {
-        sessionStorage.clear();
-        setName('');
-        navigate(Routes.LOGIN);
+        AuthService.logout().then(() => {
+            sessionStorage.clear();
+            setName('');
+            navigate(Routes.LOGIN);
+        }).catch(() => {
+            alert('Error al cerrar sesión');
+        });
     }
 
     const getUserId = () => {

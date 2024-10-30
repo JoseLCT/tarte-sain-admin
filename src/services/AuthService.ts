@@ -19,6 +19,14 @@ export const AuthService = {
                 .catch(error => reject(error))
         });
     },
+    logout: () => {
+        return new Promise<void>((resolve, reject) => {
+            axios.get('https://proxy.tartesain.com/web-proxy/auth/logout', {
+                withCredentials: true,
+            }).then(() => resolve())
+                .catch(error => reject(error))
+        });
+    },
     me: () => {
         return new Promise<Admin>((resolve, reject) => {
             axios.get('https://proxy.tartesain.com/proxy/me', {
