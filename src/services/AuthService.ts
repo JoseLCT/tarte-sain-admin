@@ -8,7 +8,7 @@ export const AuthService = {
         data.append('username', adminname);
         data.append('password', password);
         return new Promise<LoginResponse>((resolve, reject) => {
-            axios.post('https://tartesain.com/web-proxy/auth/login', data, {
+            axios.post('https://proxy.tartesain.com/web-proxy/auth/login', data, {
                 headers: {
                     'accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -21,7 +21,7 @@ export const AuthService = {
     },
     me: () => {
         return new Promise<Admin>((resolve, reject) => {
-            axios.get('https://tartesain.com/proxy/me', {
+            axios.get('https://proxy.tartesain.com/proxy/me', {
                 withCredentials: true,
             }).then(response => resolve(response.data))
                 .catch(error => reject(error))

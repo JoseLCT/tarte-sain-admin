@@ -2,7 +2,7 @@ import axios from "axios";
 import { Routes } from "../routes/CONSTANTS";
 
 const api = axios.create({
-    baseURL: 'https://tartesain.com/proxy/v1',
+    baseURL: 'https://proxy.tartesain.com/proxy/v1',
     withCredentials: true,
     timeout: 5000,
 })
