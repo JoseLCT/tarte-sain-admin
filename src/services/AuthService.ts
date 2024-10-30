@@ -21,7 +21,7 @@ export const AuthService = {
     },
     logout: () => {
         return new Promise<void>((resolve, reject) => {
-            axios.get('https://proxy.tartesain.com/web-proxy/auth/logout', {
+            axios.post('https://proxy.tartesain.com/web-proxy/auth/logout', {}, {
                 withCredentials: true,
             }).then(() => resolve())
                 .catch(error => reject(error))
