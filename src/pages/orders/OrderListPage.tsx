@@ -43,7 +43,7 @@ const OrderListPage = () => {
         <main className="padding__x">
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl text-secondary font-bold my-3">Órdenes</h1>
-                <select className="primary__button" onChange={(e) => setFilter(e.target.value)}>
+                <select className="primary__button" onChange={(e) => setFilter(e.target.value)} id="filter">
                     <option value="" className="text-primary">Todas</option>
                     <option value="entregado" className="text-primary">Entregadas</option>
                     <option value="recibido" className="text-primary">Recibidas</option>
@@ -69,17 +69,19 @@ const OrderListPage = () => {
                     {orders
                         .filter(order => filter === "" || order.status === filter)
                         .map(order => (
-                            <tr key={"cat-" + order.id}>
-                                <td className="ps-3">{order.address}</td>
-                                <td className="ps-3">{getFormattedDate(order.delivery_date)}</td>
-                                <td className="ps-3">{order.note}</td>
-                                <td className="ps-3">{order.phone_number}</td>
-                                <td className="ps-3">{order.status}</td>
-                                <td className="ps-3">{order.total_amount}</td>
+                            <tr key={"ord-" + order.id}>
+                                <td className="ps-3 order-address">{order.address}</td>
+                                <td className="ps-3 order-delivery-date">{getFormattedDate(order.delivery_date)}</td>
+                                <td className="ps-3 order-note">{order.note}</td>
+                                <td className="ps-3 order-phone">{order.phone_number}</td>
+                                <td className="ps-3 order-status">{order.status}</td>
+                                <td className="ps-3 order-total">{order.total_amount}</td>
                                 <td>
                                     <button
+                                        id="btn-details"
                                         className="primary__button p-1"
-                                        onClick={() => openOrderModal(order.id!)}>
+                                        onClick={() => openOrderModal(order.id!)}
+                                    >
                                         Ver Detalles
                                     </button>
                                 </td>
@@ -89,7 +91,7 @@ const OrderListPage = () => {
             </table>
         </main>
         <OrderModal handleOpen={() => setIsOrderModalOpen(false)} isOpen={isOrderModalOpen}
-            orderId={selectedOrderId} onSucess={() => fetchOrders()}/>
+            orderId={selectedOrderId} onSucess={() => fetchOrders()} />
     </>);
 }
 

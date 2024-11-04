@@ -204,7 +204,7 @@ const ProductFormPage = () => {
                         </div>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="slug" className="block text-md font-medium text-gray-900 mb-1">
+                        <label htmlFor="icon" className="block text-md font-medium text-gray-900 mb-1">
                             Ícono
                         </label>
                         {image && <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300
@@ -213,7 +213,7 @@ const ProductFormPage = () => {
                         </div>}
                         <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300
                             focus-within:ring-2 focus-within:ring-inset sm:max-w-md w-96">
-                            <input type="file" name="slug" id="slug" className="block flex-1 border-0
+                            <input type="file" name="icon" id="icon" className="block flex-1 border-0
                                 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400
                                 focus:ring-0 sm:text-sm sm:leading-6 rounded-md" {...id ? {} : { required: true }}
                                 onChange={(e) => handleImageChange(e)} />
@@ -245,21 +245,28 @@ const ProductFormPage = () => {
                             <div className="relative me-1 shrink-0" key={"screenshot-" + index}>
                                 <img src={image.img_url}
                                     className="h-[200px] rounded-md" />
-                                <button className="bg-red-600 px-2 py-1 text-white rounded-full absolute top-0 end-0"
-                                    type="button" onClick={() => {
+                                <button
+                                    className="bg-red-600 px-2 py-1 text-white rounded-full absolute top-0 end-0 btn-delete-image"
+                                    type="button"
+                                    onClick={() => {
                                         if (image.id) {
                                             deleteGalleryImage(image.id);
                                             return;
                                         }
                                         removeGalleryImage(index);
-                                    }}>
+                                    }}
+                                >
                                     <i className="fas fa-trash-alt"></i>
                                 </button>
                             </div>
                         ))}
                     </div>
-                    <input type="file" className="" onChange={handleGalleryImageChange}
-                        multiple />
+                    <input
+                        type="file"
+                        id="input-gallery"
+                        onChange={handleGalleryImageChange}
+                        multiple
+                    />
                 </div>
 
                 <div className="mb-3 col-span-2">
@@ -267,7 +274,7 @@ const ProductFormPage = () => {
                         {error}
                     </p>
                 </div>
-                <button className="primary__button w-96 p-2" type="submit" disabled={isSaveButtonDisabled}>
+                <button className="primary__button w-96 p-2" type="submit" disabled={isSaveButtonDisabled} id="btn-save">
                     {isSaveButtonDisabled ? 'Guardando...' : 'Guardar'}
                 </button>
             </form>

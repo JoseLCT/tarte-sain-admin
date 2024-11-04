@@ -37,20 +37,33 @@ const CategoryListPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {categories.map((category) => <tr key={"cat-" + category.id}>
-                        <td className="ps-3">{category.name}</td>
-                        <td className="ps-3">{category.description}</td>
-                        <td className="ps-3">
-                            <img src={category.img_url} alt={category.name} className="w-20 h-20" />
-                        </td>
-                        <td className="ps-3">
-                            <a href={Routes.CATEGORY.EDIT_PARAM(category.id)}
-                                className="primary__button p-2">Editar</a>
-                            <button onClick={() => deleteCategory(category.id!)}
-                                className="text-white font-medium rounded-xl bg-red-600 p-2 ms-2">
-                                Eliminar</button>
-                        </td>
-                    </tr>)}
+                    {categories.map((category) =>
+                        <tr key={"cat-" + category.id} className="category-row">
+                            <td className="ps-3 category-name">
+                                {category.name}
+                            </td>
+                            <td className="ps-3 category-description">
+                                {category.description}
+                            </td>
+                            <td className="ps-3 category-image">
+                                <img src={category.img_url} alt={category.name} className="w-20 h-20" />
+                            </td>
+                            <td className="ps-3 category-actions">
+                                <a
+                                    href={Routes.CATEGORY.EDIT_PARAM(category.id)}
+                                    className="primary__button p-2 link-edit"
+                                >
+                                    Editar
+                                </a>
+                                <button
+                                    onClick={() => deleteCategory(category.id!)}
+                                    className="text-white font-medium rounded-xl bg-red-600 p-2 ms-2 btn-delete"
+                                >
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </main>

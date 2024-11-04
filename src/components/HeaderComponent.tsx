@@ -47,7 +47,7 @@ const HeaderComponent = () => {
 
     return (<header className='menu__header padding__x p-3'>
         <nav className='flex justify-between items-center'>
-            <a href={Routes.HOME}>
+            <a href={Routes.HOME} id='menu-link-logo'>
                 <img src={logo} alt="Logo" className='menu__logo' />
             </a>
             {window.location.pathname !== Routes.LOGIN && <div className="relative">

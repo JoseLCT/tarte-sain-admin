@@ -27,7 +27,7 @@ const ProductListPage = () => {
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl text-secondary font-bold my-3">Productos</h1>
                 <input type="text" placeholder="Buscar" className=" border border-secondary p-2 
-                    rounded-xl focus:outline-secondary" onChange={(e) => setSearchTerm(e.target.value)}/>
+                    rounded-xl focus:outline-secondary" onChange={(e) => setSearchTerm(e.target.value)} />
                 <a href={Routes.PRODUCT.CREATE} className="primary__button p-2 h-fit">Agregar</a>
             </div>
             <table className="table-auto w-full">
@@ -41,21 +41,36 @@ const ProductListPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product) => product.name.includes(searchTerm) && <tr key={"cat-" + product.id}>
-                        <td className="ps-3">{product.name}</td>
-                        <td className="ps-3">{product.description}</td>
-                        <td className="ps-3">{product.price}</td>
-                        <td className="ps-3">
-                            <img src={product.img_url} alt={product.name} className="w-20 h-20" />
-                        </td>
-                        <td className="ps-3">
-                            <a href={Routes.PRODUCT.EDIT_PARAM(product.id)}
-                                className="primary__button p-2">Editar</a>
-                            <button onClick={() => deleteProduct(product.id!)}
-                                className="text-white font-medium rounded-xl bg-red-600 p-2 ms-2">
-                                Eliminar</button>
-                        </td>
-                    </tr>)}
+                    {products.map((product) => product.name.includes(searchTerm) &&
+                        <tr key={"prod-" + product.id}>
+                            <td className="ps-3 product-name">
+                                {product.name}
+                            </td>
+                            <td className="ps-3 product-description">
+                                {product.description}
+                            </td>
+                            <td className="ps-3 product-price">
+                                {product.price}
+                            </td>
+                            <td className="ps-3 product-image">
+                                <img src={product.img_url} alt={product.name} className="w-20 h-20" />
+                            </td>
+                            <td className="ps-3 product-actions">
+                                <a
+                                    href={Routes.PRODUCT.EDIT_PARAM(product.id)}
+                                    className="primary__button p-2 link-edit"
+                                >
+                                    Editar
+                                </a>
+                                <button
+                                    onClick={() => deleteProduct(product.id!)}
+                                    className="text-white font-medium rounded-xl bg-red-600 p-2 ms-2 btn-delete"
+                                >
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </main>

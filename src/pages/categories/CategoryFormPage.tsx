@@ -112,7 +112,7 @@ const CategoryFormPage = () => {
                     </div>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="slug" className="block text-md font-medium text-gray-900 mb-1">
+                    <label htmlFor="imagen" className="block text-md font-medium text-gray-900 mb-1">
                         Imagen
                     </label>
                     {image && <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 
@@ -121,7 +121,7 @@ const CategoryFormPage = () => {
                     </div>}
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 
                         focus-within:ring-2 focus-within:ring-inset sm:max-w-md">
-                        <input type="file" name="slug" id="slug" className="block flex-1 border-0 
+                        <input type="file" name="imagen" id="imagen" className="block flex-1 border-0 
                             bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 
                             focus:ring-0 sm:text-sm sm:leading-6 rounded-md" {...id ? {} : { required: true }}
                             onChange={(e) => handleImageChange(e)} />
@@ -132,7 +132,13 @@ const CategoryFormPage = () => {
                         {error}
                     </p>
                 </div>
-                <button className="primary__button w-full p-2" type="submit">Guardar</button>
+                <button
+                    className="primary__button w-full p-2"
+                    type="submit"
+                    id="btn-save"
+                >
+                    Guardar
+                </button>
             </form>
         </main>
     </>);

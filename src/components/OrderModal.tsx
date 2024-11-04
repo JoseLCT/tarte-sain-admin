@@ -70,6 +70,7 @@ const OrderModal = ({ isOpen, handleOpen, orderId, onSucess }: Props) => {
                             Detalles de la Orden
                         </h5>
                         <button
+                            id="btn-close"
                             type="button"
                             className="box-content rounded-none border-none text-neutral-500 hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
                             onClick={handleOpen}
@@ -102,14 +103,14 @@ const OrderModal = ({ isOpen, handleOpen, orderId, onSucess }: Props) => {
                             <p><span className="font-bold">Monto Total: </span>{order.total_amount}</p>
                             <div className="col-span-3 flex justify-center py-1 gap-1">
                                 <p className="font-bold">Cambiar Estado</p>
-                                <select className="primary__button px-1" onChange={(e) => setNewStatus(e.target.value)}>
-                                    <option value="" className="text-primary">Sin Seleccionar</option>
-                                    <option value="entregado" className="text-primary">Entregado</option>
-                                    <option value="recibido" className="text-primary">Recibido</option>
-                                    <option value="confirmado" className="text-primary">Confirmado</option>
-                                    <option value="cancelado" className="text-primary">Cancelado</option>
-                                    <option value="reembolsado" className="text-primary">Reembolsado</option>
-                                    <option value="completado" className="text-primary">Completado</option>
+                                <select className="primary__button px-1" onChange={(e) => setNewStatus(e.target.value)} id="status">
+                                    <option value="" className="text-primary" id="status-default">Sin Seleccionar</option>
+                                    <option value="entregado" className="text-primary status-delivered">Entregado</option>
+                                    <option value="recibido" className="text-primary status-received">Recibido</option>
+                                    <option value="confirmado" className="text-primary status-confirmed">Confirmado</option>
+                                    <option value="cancelado" className="text-primary status-canceled">Cancelado</option>
+                                    <option value="reembolsado" className="text-primary status-refunded">Reembolsado</option>
+                                    <option value="completado" className="text-primary status-completed">Completado</option>
                                 </select>
                             </div>
                         </div>
@@ -128,12 +129,14 @@ const OrderModal = ({ isOpen, handleOpen, orderId, onSucess }: Props) => {
                     <div
                         className="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 p-4">
                         <button
+                            id="btn-close"
                             type="button"
                             className="inline-block rounded bg-primary-100 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-200 focus:bg-primary-accent-200 focus:outline-none focus:ring-0 active:bg-primary-accent-200 dark:bg-primary-300 dark:hover:bg-primary-400 dark:focus:bg-primary-400 dark:active:bg-primary-400"
                             onClick={handleOpen}>
                             Cerrar
                         </button>
                         <button
+                            id="btn-save"
                             type="button"
                             onClick={saveChanges}
                             className="ms-1 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">

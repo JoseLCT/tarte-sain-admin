@@ -45,19 +45,37 @@ const AdminListPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {admins.map((admin) => <tr key={"cat-" + admin.id}>
-                        <td className="ps-3">{admin.name}</td>
-                        <td className="ps-3">{admin.last_name}</td>
-                        <td className="ps-3">{admin.email}</td>
-                        <td className="ps-3">{admin.phone_number}</td>
-                        <td className="ps-3">
-                            <button onClick={() => navigateToEdit(admin.id!)}
-                                className="primary__button p-2">Editar</button>
-                            <button onClick={() => deleteAdmin(admin.id!)}
-                                className="text-white font-medium rounded-xl bg-red-600 p-2 ms-2">
-                                Eliminar</button>
-                        </td>
-                    </tr>)}
+                    {admins.map((admin) =>
+                        <tr key={"admin-" + admin.id}>
+                            <td className="ps-3 admin-name">
+                                {admin.name}
+                            </td>
+                            <td className="ps-3 admin-lastname">
+                                {admin.last_name}
+                            </td>
+                            <td className="ps-3 admin-email">
+                                {admin.email}
+                            </td>
+                            <td className="ps-3 admin-phone">
+                                {admin.phone_number}
+                            </td>
+                            <td className="ps-3 admin-actions">
+                                <button
+                                    onClick={() => navigateToEdit(admin.id!)}
+                                    className="primary__button p-2"
+                                    id="btn-edit"
+                                >Editar
+                                </button>
+                                <button
+                                    id="btn-delete"
+                                    onClick={() => deleteAdmin(admin.id!)}
+                                    className="text-white font-medium rounded-xl bg-red-600 p-2 ms-2"
+                                >
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </main>

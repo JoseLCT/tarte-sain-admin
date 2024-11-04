@@ -185,9 +185,9 @@ const AdminFormPage = () => {
                             focus:ring-0 sm:text-sm sm:leading-6 rounded-md"
                             value={role} required
                             onChange={(e) => setRole(e.target.value)}>
-                            <option value="">Seleccionar Rol</option>
-                            <option value="admin">Administrador</option>
-                            <option value="super_admin">Super Administrador</option>
+                            <option value="" id="option-default">Seleccionar Rol</option>
+                            <option value="admin" id="option-admin">Administrador</option>
+                            <option value="super_admin" id="option-super-admin">Super Administrador</option>
                         </select>
                     </div>
                 </div>}
@@ -196,7 +196,7 @@ const AdminFormPage = () => {
                         {error}
                     </p>
                 </div>
-                <button className="primary__button w-full p-2" type="submit">Guardar</button>
+                <button className="primary__button w-full p-2" type="submit" id="btn-save">Guardar</button>
             </form>
         </main>
     </>);
